@@ -1,10 +1,50 @@
-﻿namespace AddressBookShared.Services;
+﻿using System.Diagnostics;
 
-internal interface IFileService
+namespace AddressBookShared.Services;
+
+public interface IFileService
 {
-
+    bool SaveContentToFile(string content);
+    string GetContentFromFile();
 }
-internal class FileService
+public class FileService : IFileService
 {
+    private readonly string _filePath = @"C:\Projects\content.json";
+
+    public bool SaveContentToFile(string content)
+    {
+        try
+        {
+            using (var sw = new StreamWriter(_filePath))
+            {
+                sw.WriteLine(content);
+                return true;
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+        }
+        return false;
+    }
+
+    public string GetContentFromFile()
+    {
+        try
+        {
+            if (File.Exists(_filePath))
+            {
+                using (var sr = new StreamReader(_filePath))
+                {
+                    return sr.ReadToEnd();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+        }
+        return null!;
+    }
 
 }

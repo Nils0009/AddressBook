@@ -1,30 +1,66 @@
 ﻿using AddressBookShared.Interfaces;
+using System.Diagnostics;
 
 namespace AddressBookShared.Services;
 public class ContactService : IContactService
 {
     public bool AddContactToList(IContactModel contact)
     {
-        throw new NotImplementedException();
+        try
+        {
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+        }
     }
 
     public IEnumerable<IContactModel> GetAllContacts()
     {
-        throw new NotImplementedException();
+        try
+        {
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+        }
     }
 
     public IContactModel GetOneContactByEmail(string email)
     {
-        throw new NotImplementedException();
+        try
+        {
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+        }
     }
 
     public bool RemoveContactFromList(string email)
     {
-        throw new NotImplementedException();
+        try
+        {
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+        }
     }
 
     public bool UpdateContactInList(IContactModel contact, string newFirstName, string NewLastName, string newEmail, string newPhoneNumber, string newStreetName, string newCity, string newPostalCode)
     {
-        throw new NotImplementedException();
+        try
+        {
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+        }
     }
 }
