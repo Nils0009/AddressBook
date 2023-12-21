@@ -1,12 +1,7 @@
 ﻿using System.Diagnostics;
+using AddressBookShared.Interfaces;
 
 namespace AddressBookShared.Services;
-
-public interface IFileService
-{
-    bool SaveContentToFile(string content);
-    string GetContentFromFile();
-}
 public class FileService : IFileService
 {
     private readonly string _filePath = @"C:\Projects\content.json";
