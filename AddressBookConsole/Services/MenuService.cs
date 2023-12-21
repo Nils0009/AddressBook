@@ -44,91 +44,166 @@ public class MenuService
                     ShowExitMenu();
                     break;
             }
+            Console.ReadKey();
+            Console.Clear();
 
         }
     }
     public void ShowAddMenu()
     {
-        IContactModel contact = new ContactModel();
-
-        Console.WriteLine("Add contact");
-        Console.Write("First name: ");
-        if (!string.IsNullOrEmpty(Console.ReadLine()) && !Console.ReadLine()!.Any(char.IsDigit))
+        while (true)
         {
-            contact.FirstName = Console.ReadLine()!.ToLower();
+            IContactModel contact = new ContactModel();
+
+            ShowMenuText("Add contact");
+            Console.WriteLine("-------------");
+            Console.WriteLine();
+
+            Console.Write("First name: ");
+            var validatedFirstname = Console.ReadLine()!;
+            validatedFirstname = ValidateText(validatedFirstname);
+            if (validatedFirstname == null) { break; }
+            contact.FirstName = validatedFirstname;
+
+            Console.Write("Last name: ");
+            var validatedLastName = Console.ReadLine()!;
+            validatedLastName = ValidateText(validatedLastName);
+            if (validatedLastName == null) { break; }
+            contact.LastName = validatedLastName;
+
+
+            Console.Write("Email: ");
+            var validatedEmail = Console.ReadLine()!;
+            validatedEmail = ValidateEmail(validatedEmail);
+            if (validatedEmail == null) { break; }
+            contact.Email = validatedEmail;
+
+            Console.Write("Phone number: ");
+            var validatedPhoneNumber = Console.ReadLine()!;
+            validatedPhoneNumber = ValidateNum(validatedPhoneNumber);
+            if (validatedPhoneNumber == null) { break; }
+            contact.PhoneNumber = validatedPhoneNumber;
+
+
+            Console.Write("Street name: ");
+            var validatedStreetName = Console.ReadLine()!;
+            validatedStreetName = ValidateNum(validatedStreetName);
+            if (validatedStreetName == null) { break; }
+            contact.StreetName = validatedStreetName;
+
+
+            Console.Write("City: ");
+            var validatedCity = Console.ReadLine()!;
+            validatedCity = ValidateText(validatedCity);
+            if (validatedCity == null) { break; }
+            contact.City = validatedCity;
+
+            Console.Write("Postal code: ");
+            var validatedPostalCode = Console.ReadLine()!;
+            validatedPostalCode = ValidateNum(validatedPostalCode);
+            if (validatedPostalCode == null) { break; }
+            contact.PostalCode = validatedPostalCode;
+
+
+            Console.WriteLine();
+            ShowMenuText("Contact saved");
+            Console.WriteLine("---------------");
+            _contactService.AddContactToList(contact);
+            break;
         }
 
-        Console.Write("Last name: ");
-        contact.LastName = Console.ReadLine()!.ToLower();
-        Console.Write("Email: ");
-        contact.Email = Console.ReadLine()!.ToLower();
-        Console.Write("Phone number: ");
-        contact.PhoneNumber = Console.ReadLine()!.ToLower();
-        Console.Write("Street name: ");
-        contact.StreetName = Console.ReadLine()!.ToLower();
-        Console.Write("City: ");
-        contact.City = Console.ReadLine()!.ToLower();
-        Console.Write("Postal code: ");
-        contact.PostalCode = Console.ReadLine()!.ToLower();
-
-        _contactService.AddContactToList(contact);
     }
     public void ShowContactListMenu()
     {
-        Console.WriteLine("Contact list");
-        _contactService.GetAllContactsFromList();
-        foreach (ContactModel contact1 in _contactService.GetAllContactsFromList())
+        ShowMenuText("Contact list");
+        Console.WriteLine("---------------");
+        Console.WriteLine();
+
+        if (_contactService.GetAllContactsFromList() != null)
         {
-            Console.WriteLine($"{contact1.FirstName}, {contact1.LastName}, {contact1.Email}, {contact1.PhoneNumber}, {contact1.StreetName}, {contact1.City}, {contact1.PostalCode}");
+            foreach (ContactModel contact in _contactService.GetAllContactsFromList())
+            {
+                Console.WriteLine($"{contact.FirstName}, {contact.LastName}, {contact.Email}, {contact.PhoneNumber}, {contact.StreetName}, {contact.City}, {contact.PostalCode}");
+            }
         }
-    }
-    public void ShowContactUpdateMenu() 
-    {
-        Console.Write("Update contact with email: ");
-        string userUpdateEmailInput = Console.ReadLine()!.ToLower();
-        var contactToBeUpdated = _contactService.GetOneContactByEmail(userUpdateEmailInput);
-        Console.WriteLine("Contact found");
-        Console.WriteLine($"{contactToBeUpdated.FirstName}, {contactToBeUpdated.LastName}, {contactToBeUpdated.Email}, {contactToBeUpdated.PhoneNumber}, {contactToBeUpdated.StreetName}, {contactToBeUpdated.City}, {contactToBeUpdated.PostalCode}");
-        Console.Write("Do you want to update? (y/n): ");
-        string userUpdateAnswerInput = Console.ReadLine()!.ToLower();
-        if (userUpdateAnswerInput == "y")
+        else
         {
-            Console.Write("First name: ");
-            string newFirstName = Console.ReadLine()!.ToLower();
-            contactToBeUpdated.FirstName = newFirstName;
+            Console.WriteLine();
+            Console.WriteLine("The contact list is empty!");
+            Console.WriteLine("--------------------------");
+        }
 
-            Console.Write("Last name: ");
-            string newLastName = Console.ReadLine()!.ToLower();
-            contactToBeUpdated.LastName = newLastName;
 
-            Console.Write("Email: ");
-            string newEmail = Console.ReadLine()!.ToLower();
-            contactToBeUpdated.Email = newEmail;
+    }
+    public void ShowContactUpdateMenu()
+    {
+        while (true)
+        {
+            Console.Write("Update contact with email: ");
+            string userUpdateEmailInput = Console.ReadLine()!.ToLower();
+            var contactToBeUpdated = _contactService.GetOneContactByEmail(userUpdateEmailInput);
+            Console.WriteLine("Contact found");
+            Console.WriteLine($"{contactToBeUpdated.FirstName}, {contactToBeUpdated.LastName}, {contactToBeUpdated.Email}, {contactToBeUpdated.PhoneNumber}, {contactToBeUpdated.StreetName}, {contactToBeUpdated.City}, {contactToBeUpdated.PostalCode}");
+            Console.Write("Do you want to update? (y/n): ");
+            string userUpdateAnswerInput = Console.ReadLine()!.ToLower();
+            if (userUpdateAnswerInput == "y")
+            {
+                Console.Write("First name: ");
+                var validatedFirstname = Console.ReadLine()!;
+                validatedFirstname = ValidateText(validatedFirstname);
+                if (validatedFirstname == null) { break; }
+                contactToBeUpdated.FirstName = validatedFirstname;
 
-            Console.Write("Phone number: ");
-            string newPhoneNumber = Console.ReadLine()!.ToLower();
-            contactToBeUpdated.PhoneNumber = newPhoneNumber;
+                Console.Write("Last name: ");
+                var validatedLastName = Console.ReadLine()!;
+                validatedLastName = ValidateText(validatedLastName);
+                if (validatedLastName == null) { break; }
+                contactToBeUpdated.LastName = validatedLastName;
 
-            Console.Write("Street name: ");
-            string newStreetName = Console.ReadLine()!.ToLower();
-            contactToBeUpdated.StreetName = newStreetName;
 
-            Console.Write("City: ");
-            string newCity = Console.ReadLine()!.ToLower();
-            contactToBeUpdated.City = newCity;
+                Console.Write("Email: ");
+                var validatedEmail = Console.ReadLine()!;
+                validatedEmail = ValidateEmail(validatedEmail);
+                if (validatedEmail == null) { break; }
+                contactToBeUpdated.Email = validatedEmail;
 
-            Console.Write("Postal code: ");
-            string newPostalCode = Console.ReadLine()!.ToLower();
-            contactToBeUpdated.PostalCode = newPostalCode;
+                Console.Write("Phone number: ");
+                var validatedPhoneNumber = Console.ReadLine()!;
+                validatedPhoneNumber = ValidateNum(validatedPhoneNumber);
+                if (validatedPhoneNumber == null) { break; }
+                contactToBeUpdated.PhoneNumber = validatedPhoneNumber;
 
-            _contactService.UpdateContactInList(contactToBeUpdated, newFirstName, newLastName, newEmail, newPhoneNumber, newStreetName, newCity, newPostalCode);
 
-            Console.WriteLine("Contact was updated");
+                Console.Write("Street name: ");
+                var validatedStreetName = Console.ReadLine()!;
+                validatedStreetName = ValidateNum(validatedStreetName);
+                if (validatedStreetName == null) { break; }
+                contactToBeUpdated.StreetName = validatedStreetName;
+
+
+                Console.Write("City: ");
+                var validatedCity = Console.ReadLine()!;
+                validatedCity = ValidateText(validatedCity);
+                if (validatedCity == null) { break; }
+                contactToBeUpdated.City = validatedCity;
+
+                Console.Write("Postal code: ");
+                var validatedPostalCode = Console.ReadLine()!;
+                validatedPostalCode = ValidateNum(validatedPostalCode);
+                if (validatedPostalCode == null) { break; }
+                contactToBeUpdated.PostalCode = validatedPostalCode;
+
+                _contactService.UpdateContactInList(contactToBeUpdated, validatedFirstname, validatedLastName, validatedEmail, validatedPhoneNumber, validatedStreetName, validatedCity, validatedPostalCode);
+
+                ShowMenuText("Contact was updated");
+                break;
+            }
         }
     }
     public void ShowDeleteMenu()
     {
-        Console.WriteLine("Delete contact");
+        ShowMenuText("Delete contact");
+        Console.WriteLine("--------------");
         Console.Write("Remove contact with email: ");
         string userRemoveInput = Console.ReadLine()!.ToLower();
         var userToRemoveFound = _contactService.GetOneContactByEmail(userRemoveInput);
@@ -149,8 +224,9 @@ public class MenuService
             if (userRemoveInputAnswer == "y")
             {
                 _contactService.RemoveContactFromList(userRemoveInput);
-                Console.WriteLine("Contact was removed");
+                ShowMenuText("Contact was removed");
             }
+
         }
 
 
@@ -158,6 +234,7 @@ public class MenuService
     public void ShowContactSearchMenu()
     {
         Console.Write("Search contact with email: ");
+        Console.WriteLine("------------------------");
         string userSearchInput = Console.ReadLine()!.ToLower();
         if (!string.IsNullOrEmpty(userSearchInput))
         {
@@ -169,12 +246,57 @@ public class MenuService
     public void ShowExitMenu()
     {
         Console.Write("Do you want to exit (y/n)?: ");
+        Console.WriteLine("---------------------------");
         string userExitInput = Console.ReadLine()!.ToLower();
         if (userExitInput == "y")
         {
             Environment.Exit(0);
         }
     }
+    public void ShowMenuText(string text)
+    {
+        Console.WriteLine($"[{text}]");
+    }
 
+    public string ValidateText(string text)
+    {
+        if (!string.IsNullOrEmpty(text) && !text!.Any(char.IsDigit))
+        {
+            return text!.ToLower();
+        }
 
+        else
+        {
+            Console.WriteLine("Invalid input!");
+            return null!;
+        }
+
+    }
+    public string ValidateNum(string text)
+    {
+        if (!string.IsNullOrEmpty(text))
+        {
+            return text!.ToLower();
+        }
+
+        else
+        {
+            Console.WriteLine("Invalid input!");
+            return null!;
+        }
+
+    }
+    public string ValidateEmail(string text)
+    {
+        if (!string.IsNullOrEmpty(text) && text!.Contains("@"))
+        {
+            return text!.ToLower();
+        }
+
+        else
+        {
+            Console.WriteLine("Invalid input!");
+            return null!;
+        }
+    }
 }
