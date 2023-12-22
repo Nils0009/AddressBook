@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBookShared", "Addres
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressBookShared.Tests", "AddressBookShared.Tests\AddressBookShared.Tests.csproj", "{D947CBB4-2E92-408F-B742-2FF6F0190479}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressBookMAUI", "AddressBookMAUI\AddressBookMAUI.csproj", "{754FC52E-D9CA-46B8-B8DD-4182CAB27C8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,12 @@ Global
 		{D947CBB4-2E92-408F-B742-2FF6F0190479}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D947CBB4-2E92-408F-B742-2FF6F0190479}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D947CBB4-2E92-408F-B742-2FF6F0190479}.Release|Any CPU.Build.0 = Release|Any CPU
+		{754FC52E-D9CA-46B8-B8DD-4182CAB27C8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{754FC52E-D9CA-46B8-B8DD-4182CAB27C8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{754FC52E-D9CA-46B8-B8DD-4182CAB27C8C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{754FC52E-D9CA-46B8-B8DD-4182CAB27C8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{754FC52E-D9CA-46B8-B8DD-4182CAB27C8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{754FC52E-D9CA-46B8-B8DD-4182CAB27C8C}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
