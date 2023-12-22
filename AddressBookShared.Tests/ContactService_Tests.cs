@@ -43,7 +43,7 @@ public class ContactService_Tests
 
         //Act
         contactService.AddContactToList(contact);
-        var oneContact = contactService.GetOneContactByEmail("NilsLind.88@hotmail.com");
+        var oneContact = contactService.GetOneContactByEmail(contact.Email);
 
         //Assert
         Assert.NotNull(oneContact);
@@ -58,12 +58,12 @@ public class ContactService_Tests
 
         //Act
         contactService.AddContactToList(contact);
-        var removeContact = contactService.RemoveContactFromList("NilsLind.88@hotmail.com");
+        var removeContact = contactService.RemoveContactFromList(contact.Email);
         var UpdatedContactList = contactService.GetAllContactsFromList();
 
         //Assert
         Assert.True(removeContact);
-        Assert.DoesNotContain(UpdatedContactList, x => x.Email == "NilsLind.88@hotmail.com");
+        Assert.DoesNotContain(UpdatedContactList, x => x.Email == contact.Email);
     }
 
     [Fact]
@@ -80,7 +80,7 @@ public class ContactService_Tests
 
         //Assert
         Assert.True(updatedContact);
-        Assert.DoesNotContain(UpdatedContactList, x => x.Email == "NilsLind.88@hotmail.com");
+        Assert.DoesNotContain(UpdatedContactList, x => x.Email == contact.Email);
         Assert.Contains(UpdatedContactList, x => x.Email == "Milo@domain.com");
     }
 
