@@ -5,7 +5,7 @@ using System.Diagnostics;
 namespace AddressBookShared.Services;
 public class ContactService : IContactService
 {
-    private List<IContactModel> _contactList = new List<IContactModel>();
+    private List<IContactModel> _contactList = [];
     private readonly FileService _fileService = new();
 
     public bool AddContactToList(IContactModel contact)
@@ -52,13 +52,13 @@ public class ContactService : IContactService
         {
             if (!string.IsNullOrEmpty(email))
             {
-                var content = _fileService.GetContentFromFile();
-                _contactList = JsonConvert.DeserializeObject<List<IContactModel>>(content, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All })!;
-
                 foreach (var contact in _contactList)
                 {
                     if (contact.Email == email)
-                    {                    
+                    {
+                        var content = _fileService.GetContentFromFile();
+                        _contactList = JsonConvert.DeserializeObject<List<IContactModel>>(content, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All })!;
+
                         return contact;
                     }
                 }
@@ -82,7 +82,9 @@ public class ContactService : IContactService
                     if(contact.Email == email)
                     {
                         _contactList.Remove(contact);
-                        return true;
+                        string json = JsonConvert.SerializeObject(_contactList, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
+                        var result = _fileService.SaveContentToFile(json);
+                        return result;
                     }
                 }
             }
@@ -94,24 +96,27 @@ public class ContactService : IContactService
         return false;
     }
 
-    public bool UpdateContactInList(IContactModel contact, string newFirstName, string NewLastName, string newEmail, string newPhoneNumber, string newStreetName, string newCity, string newPostalCode)
+    public bool UpdateContactInList(string oldEmail, string newFirstName, string newLastName, string newEmail, string newPhoneNumber, string newStreetName, string newCity, string newPostalCode)
     {
         try
         {
-            if (contact != null)
+            foreach (var contact in _contactList)
             {
-                contact.FirstName = newFirstName;
-                contact.LastName = NewLastName;
-                contact.Email = newEmail;
-                contact.PhoneNumber = newPhoneNumber;
-                contact.StreetName = newStreetName;
-                contact.City = newCity;
-                contact.PostalCode = newPostalCode;
+                if (contact.Email == oldEmail)
+                {
+                    contact.FirstName = newFirstName;
+                    contact.LastName = newLastName;
+                    contact.Email = newEmail;
+                    contact.PhoneNumber = newPhoneNumber;
+                    contact.StreetName = newStreetName;
+                    contact.City = newCity;
+                    contact.PostalCode = newPostalCode;
 
-                string json = JsonConvert.SerializeObject(_contactList, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
-                var result = _fileService.SaveContentToFile(json);
+                    string json = JsonConvert.SerializeObject(_contactList, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
+                    var result = _fileService.SaveContentToFile(json);
 
-                return result;
+                    return result;
+                }
             }
         }
         catch (Exception ex)
