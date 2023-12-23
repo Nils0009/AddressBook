@@ -3,13 +3,16 @@
     x:Class="AddressBookMAUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:AddressBookMAUI"
-    Shell.FlyoutBehavior="Disabled"
-    Title="AddressBookMAUI">
+    xmlns:local="clr-namespace:AddressBookMAUI" 
+    xmlns:pages="clr-namespace:AddressBookMAUI.Pages"   
+    Shell.FlyoutBehavior="Flyout"
+    Title="AddressBook">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <ShellContent Title="Home" ContentTemplate="{DataTemplate pages:AddressBookHomePage}" Route="AddressBookHomePage" />
+    <ShellContent Title="Add Contact" ContentTemplate="{DataTemplate pages:AddressBookAddPage}" Route="AddressBookAddPage" />
+    <ShellContent Title="Contact List" ContentTemplate="{DataTemplate pages:AddressBookListPage}" Route="AddressBookListPage" />
+    <ShellContent Title="Update Contact" ContentTemplate="{DataTemplate pages:AddressBookUpdatePage}" Route="AddressBookUpdatePage" />
+    <ShellContent Title="Delete Contact" ContentTemplate="{DataTemplate pages:AddressBookDeletePage}" Route="AddressBookDeletePage" />
+    <ShellContent Title="Search Contact" ContentTemplate="{DataTemplate pages:AddressBookSearchPage}" Route="AddressBookSearchPage" />
 
 </Shell>

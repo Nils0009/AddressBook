@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AddressBookMAUI.Pages.AddressBookAddPage"
+             
+             xmlns:viewmodels="clr-namespace:AddressBookMAUI.ViewModels"
+             x:DataType="{x:Type viewmodels:AddressBookAddViewModel}"
+             
+             Title="AddressBookAddPage">
+
+    <Grid RowDefinitions="auto" Margin="10">
+        <VerticalStackLayout Grid.Row="0">
+            <Label Text="First name"/>
+            <Entry Margin="0,10,0,10"/>
+            <Label Text="Last name"/>
+            <Entry Margin="0,10,0,10"/>
+            <Label Text="Email"/>
+            <Entry Margin="0,10,0,10"/>
+            <Label Text="Phone number"/>
+            <Entry Margin="0,10,0,10"/>
+            <Label Text="Street name"/>
+            <Entry Margin="0,10,0,10"/>
+            <Label Text="City"/>
+            <Entry Margin="0,10,0,10"/>
+            <Label Text="Postal code"/>
+            <Entry Margin="0,10,0,10"/>
+
+            <Button Text="Add Contact" Margin="0,5,0,5"/>
+            <Button Text="Go back" Command="{Binding NavigateToHomePageCommand}" Margin="0,5,0,5"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

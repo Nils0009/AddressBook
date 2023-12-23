@@ -46,6 +46,9 @@ public class MenuService
                     case 6:
                         ShowExitMenu();
                         break;
+                    default:
+                        Console.WriteLine("Enter a valid inpuit!");
+                        break;
                 }
                 Console.ReadKey();
                 Console.Clear();
@@ -140,22 +143,33 @@ public class MenuService
     {
         try
         {
-            ShowMenuText("Contact list");
-            Console.WriteLine("---------------");
-            Console.WriteLine();
+            while (true)
+            {
+                ShowMenuText("Contact list");
+                Console.WriteLine("--------------\n");
+                var contactList = _contactService.GetAllContactsFromList();
 
-            if (_contactService.GetAllContactsFromList() != null)
-            {
-                foreach (ContactModel contact in _contactService.GetAllContactsFromList())
+                if (contactList != null && contactList.Any())
                 {
-                    Console.WriteLine($"{contact.FirstName}, {contact.LastName}, {contact.Email}, {contact.PhoneNumber}, {contact.StreetName}, {contact.City}, {contact.PostalCode}");
+                    foreach (var contact in contactList)
+                    {
+                        Console.WriteLine($"First name: {contact.FirstName}\n" +
+                                          $"Last name: {contact.LastName}\n" +
+                                          $"Email: {contact.Email}\n" +
+                                          $"Phone number: {contact.PhoneNumber}\n" +
+                                          $"Street name: {contact.StreetName}\n" +
+                                          $"City: {contact.City}\n" +
+                                          $"Postal code: {contact.PostalCode}\n" +
+                                          "\n-------------------\n");
+                    }
+                    break;
                 }
-            }
-            else
-            {
-                Console.WriteLine();
-                Console.WriteLine("The contact list is empty!");
-                Console.WriteLine("--------------------------");
+                else
+                {
+                    Console.WriteLine("The contact list is empty!");
+                    Console.WriteLine("--------------------------");
+                }
+                break;
             }
         }
         catch (Exception ex)
@@ -169,6 +183,8 @@ public class MenuService
         {
             while (true)
             {
+                ShowMenuText("Update contact");
+                Console.WriteLine("----------------\n");
                 Console.Write("Update contact with email: ");
                 string userUpdateEmailInput = ValidateEmail(Console.ReadLine()!);
                 var contactToBeUpdated = _contactService.GetOneContactByEmail(userUpdateEmailInput);
@@ -260,14 +276,14 @@ public class MenuService
             while (true)
             {
                 ShowMenuText("Delete contact");
-                Console.WriteLine("-----------------");
+                Console.WriteLine("-----------------\n");
                 Console.Write("Remove contact with email: ");
                 string userRemoveInput = ValidateEmail(Console.ReadLine()!);
                 var userToRemoveFound = _contactService.GetOneContactByEmail(userRemoveInput);
 
                 if (userToRemoveFound != null)
                 {
-                    Console.WriteLine($"First name: {userToRemoveFound.FirstName}\nLast name: {userToRemoveFound.LastName}\nEmail: {userToRemoveFound.Email}\nPhone number: {userToRemoveFound.PhoneNumber}\nStreet name: {userToRemoveFound.StreetName}\nCity: {userToRemoveFound.City}\nPostal code: {userToRemoveFound.PostalCode}");
+                    Console.WriteLine($"\nFirst name: {userToRemoveFound.FirstName}\nLast name: {userToRemoveFound.LastName}\nEmail: {userToRemoveFound.Email}\nPhone number: {userToRemoveFound.PhoneNumber}\nStreet name: {userToRemoveFound.StreetName}\nCity: {userToRemoveFound.City}\nPostal code: {userToRemoveFound.PostalCode}");
                     Console.WriteLine();
                     Console.Write("Do you want to remove? (y/n): ");
                     string userRemoveInputAnswer = ValidateText(Console.ReadLine()!);
@@ -300,6 +316,8 @@ public class MenuService
     {
         try
         {
+            ShowMenuText("Search contact");
+            Console.WriteLine("----------------\n");
             Console.Write("Search contact with email: ");
             var userFound = _contactService.GetOneContactByEmail(ValidateEmail(Console.ReadLine()!));
             Thread.Sleep(500);
@@ -323,11 +341,11 @@ public class MenuService
         }
 
     }
-    public void ShowExitMenu()
+    public static void ShowExitMenu()
     {
         try
         {
-            Console.Write("Do you want to exit (y/n)?: ");
+            Console.Write("Do you want to exit? (y/n): ");
 
             string userExitInput = ValidateText(Console.ReadLine()!);
             if (userExitInput == "y")
@@ -341,9 +359,9 @@ public class MenuService
         }
 
     }
-    public void ShowMenuText(string text)
+    public static void ShowMenuText(string text)
     {
-        Console.WriteLine($"[{text}]");
+        Console.WriteLine($"\n[{text}]");
     }
 
     public static string ValidateText(string text)

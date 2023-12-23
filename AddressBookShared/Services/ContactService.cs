@@ -42,8 +42,8 @@ public class ContactService : IContactService
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
-            return null!;
         }
+        return null!;
     }
 
     public IContactModel GetOneContactByEmail(string email)

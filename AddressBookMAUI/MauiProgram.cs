@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AddressBookMAUI.Pages;
+using AddressBookMAUI.ViewModels;
+using Microsoft.Extensions.Logging;
 
 namespace AddressBookMAUI
 {
@@ -15,9 +17,20 @@ namespace AddressBookMAUI
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-#if DEBUG
-    		builder.Logging.AddDebug();
-#endif
+            builder.Services.AddSingleton<AddressBookHomePage>();
+            builder.Services.AddSingleton<AddressBookAddPage>();
+            builder.Services.AddSingleton<AddressBookListPage>();
+            builder.Services.AddSingleton<AddressBookUpdatePage>();
+            builder.Services.AddSingleton<AddressBookDeletePage>();
+            builder.Services.AddSingleton<AddressBookSearchPage>();
+
+            builder.Services.AddSingleton<AddressBookHomeViewModel>();
+            builder.Services.AddSingleton<AddressBookAddViewModel>();
+            builder.Services.AddSingleton<AddressBookContactListViewModel>();
+            builder.Services.AddSingleton<AddressBookUpdateViewModel>();
+            builder.Services.AddSingleton<AddressBookDeleteViewModel>();
+            builder.Services.AddSingleton<AddressBookSearchViewModel>();
+
 
             return builder.Build();
         }
