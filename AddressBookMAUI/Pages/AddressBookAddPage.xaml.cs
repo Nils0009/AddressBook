@@ -4,9 +4,9 @@ namespace AddressBookMAUI.Pages;
 
 public partial class AddressBookAddPage : ContentPage
 {
-	public AddressBookAddPage(AddressBookAddViewModel viewModel)
+	public AddressBookAddPage(AddressBookAddViewModel AddViewModel)
 	{
 		InitializeComponent();
-		BindingContext = viewModel;
+		BindingContext = AddViewModel;
 	}
 }

@@ -5,18 +5,18 @@ using System.Diagnostics;
 namespace AddressBookShared.Services;
 public class ContactService : IContactService
 {
-    private List<IContactModel> _contactList = [];
+    public List<IContactModel> ContactList { get; private set; } = [];
     private readonly FileService _fileService = new();
 
     public bool AddContactToList(IContactModel contact)
     {
         try
         {
-            if (!_contactList.Any(x => x.Email == contact.Email)) 
+            if (!ContactList.Any(x => x.Email == contact.Email)) 
             {
-                _contactList.Add(contact);
+                ContactList.Add(contact);
 
-                string json = JsonConvert.SerializeObject(_contactList, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
+                string json = JsonConvert.SerializeObject(ContactList, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
                 var result = _fileService.SaveContentToFile(json);
                 return result;
             }
@@ -32,12 +32,13 @@ public class ContactService : IContactService
     {
         try
         {
-            if (_contactList != null)
+            if (ContactList != null)
             {
                 var content = _fileService.GetContentFromFile();
-                _contactList = JsonConvert.DeserializeObject<List<IContactModel>>(content, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All})!;
+                ContactList = JsonConvert.DeserializeObject<List<IContactModel>>(content, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All})!;
+                return ContactList!;
             }
-            return _contactList!;
+
         }
         catch (Exception ex)
         {
@@ -52,12 +53,12 @@ public class ContactService : IContactService
         {
             if (!string.IsNullOrEmpty(email))
             {
-                foreach (var contact in _contactList)
+                foreach (var contact in ContactList)
                 {
                     if (contact.Email == email)
                     {
                         var content = _fileService.GetContentFromFile();
-                        _contactList = JsonConvert.DeserializeObject<List<IContactModel>>(content, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All })!;
+                        ContactList = JsonConvert.DeserializeObject<List<IContactModel>>(content, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All })!;
 
                         return contact;
                     }
@@ -77,12 +78,12 @@ public class ContactService : IContactService
         {
             if (!string.IsNullOrEmpty(email))
             {
-                foreach(var contact in _contactList)
+                foreach(var contact in ContactList)
                 {
                     if(contact.Email == email)
                     {
-                        _contactList.Remove(contact);
-                        string json = JsonConvert.SerializeObject(_contactList, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
+                        ContactList.Remove(contact);
+                        string json = JsonConvert.SerializeObject(ContactList, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
                         var result = _fileService.SaveContentToFile(json);
                         return result;
                     }
@@ -100,7 +101,7 @@ public class ContactService : IContactService
     {
         try
         {
-            foreach (var contact in _contactList)
+            foreach (var contact in ContactList)
             {
                 if (contact.Email == oldEmail)
                 {
@@ -112,7 +113,7 @@ public class ContactService : IContactService
                     contact.City = newCity;
                     contact.PostalCode = newPostalCode;
 
-                    string json = JsonConvert.SerializeObject(_contactList, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
+                    string json = JsonConvert.SerializeObject(ContactList, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
                     var result = _fileService.SaveContentToFile(json);
 
                     return result;
