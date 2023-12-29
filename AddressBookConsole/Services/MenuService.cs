@@ -7,7 +7,13 @@ namespace AddressBookConsole.Services;
 
 public class MenuService
 {
-    IContactService _contactService = new ContactService();
+    private readonly IContactService _contactService;
+
+    public MenuService(IContactService contactService)
+    {
+        _contactService = contactService;
+    }
+
     public void ShowMainMenu()
     {
         try

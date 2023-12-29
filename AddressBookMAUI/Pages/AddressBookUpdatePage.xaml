@@ -7,32 +7,36 @@
              
              x:Class="AddressBookMAUI.Pages.AddressBookUpdatePage"
              
-             Title="Update Contact">
+             Title="">
+    <ScrollView>
+        <Grid Margin="10" HorizontalOptions="Center">
+            <VerticalStackLayout>
+                <Label Text="Update Contact" FontSize="Header" Margin="0,0,0,50" FontAttributes="Italic, Bold" TextDecorations="Underline"/>
+                <Label Text="First name"/>
+                <Entry Text="{Binding ContactPerson.FirstName}" Margin="0,10,0,10"/>
 
-    <Grid Margin="10">
-        <VerticalStackLayout>
-            <Label Text="First name"/>
-            <Entry Text="{Binding ContactPerson.FirstName}" Margin="0,10,0,10"/>
+                <Label Text="Last name"/>
+                <Entry Text="{Binding ContactPerson.LastName}" Margin="0,10,0,10"/>
 
-            <Label Text="Last name"/>
-            <Entry Text="{Binding ContactPerson.LastName}" Margin="0,10,0,10"/>
+                <Label Text="Email"/>
+                <Entry Text="{Binding ContactPerson.Email}" Margin="0,10,0,10"/>
 
-            <Label Text="Email"/>
-            <Entry Text="{Binding ContactPerson.Email}" Margin="0,10,0,10"/>
+                <Label Text="Phone number"/>
+                <Entry Text="{Binding ContactPerson.PhoneNumber}" Margin="0,10,0,10"/>
 
-            <Label Text="Phone number"/>
-            <Entry Text="{Binding ContactPerson.PhoneNumber}" Margin="0,10,0,10"/>
+                <Label Text="Street name"/>
+                <Entry Text="{Binding ContactPerson.StreetName}" Margin="0,10,0,10"/>
 
-            <Label Text="Street name"/>
-            <Entry Text="{Binding ContactPerson.StreetName}" Margin="0,10,0,10"/>
+                <Label Text="City"/>
+                <Entry Text="{Binding ContactPerson.City}" Margin="0,10,0,10"/>
 
-            <Label Text="City"/>
-            <Entry Text="{Binding ContactPerson.City}" Margin="0,10,0,10"/>
+                <Label Text="Postal code"/>
+                <Entry Text="{Binding ContactPerson.PostalCode}" Margin="0,10,0,10"/>
 
-            <Label Text="Postal code"/>
-            <Entry Text="{Binding ContactPerson.PostalCode}" Margin="0,10,0,10"/>
+                <Button Command="{Binding UpdateContactInListCommand}" Text="Update Contact" Margin="0,5,0,5"/>
+                <Button Command="{Binding NavigateToHomeCommand}" Text="Go to Home"/>
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
 
-            <Button Command="{Binding UpdateContactInListCommand}" Text="Update Contact" Margin="0,5,0,5"/>
-        </VerticalStackLayout>
-    </Grid>
 </ContentPage>

@@ -13,7 +13,7 @@ public class PageContentService
         _contactService = contactService;
     }
 
-    private ObservableCollection<IContactModel> _contacts = [];
+    private List<IContactModel> _contacts = [];
 
     public EventHandler? ContactsUpdated;
 
@@ -43,13 +43,12 @@ public class PageContentService
 
     public void UpdateContact(IContactModel contactModel)
     {
-        var contact = _contacts.FirstOrDefault(x => x.Email == contactModel.Email);
-        if (contact != null)
+
+        if (contactModel != null)
         {
-            var result = _contactService.UpdateContactInList(contact.Email, contact.FirstName, contact.LastName, contact.Email, contact.PhoneNumber, contact.StreetName, contact.City, contact.PostalCode);
+            var result = _contactService.UpdateContactInList(contactModel.Email, contactModel.FirstName, contactModel.LastName, contactModel.Email, contactModel.PhoneNumber, contactModel.StreetName, contactModel.City, contactModel.PostalCode);
             if (result)
             {
-                contact = contactModel;
                 ContactsUpdated?.Invoke(this, EventArgs.Empty);
             }       
         }

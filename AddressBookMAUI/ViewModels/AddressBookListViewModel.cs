@@ -47,6 +47,17 @@ public partial class AddressBookListViewModel : ObservableObject
     }
 
     [RelayCommand]
+    private async Task NavigateToDetails(IContactModel contactModel)
+    {
+        var parameters = new ShellNavigationQueryParameters
+        {
+            {"Contact", contactModel }
+        };
+
+        await Shell.Current.GoToAsync("AddressBookDetailPage", parameters);
+    }
+
+    [RelayCommand]
     private void DeleteContact(IContactModel contactModel) 
     {
         if (contactModel != null)
@@ -55,8 +66,12 @@ public partial class AddressBookListViewModel : ObservableObject
 
             ContactList = new ObservableCollection<IContactModel>(_pageContentService.GetContacts());
         }
+      
+    }
 
-
-        
+    [RelayCommand]
+    private async Task NavigateToHome()
+    {
+        await Shell.Current.GoToAsync("//AddressBookHomePage");
     }
 }

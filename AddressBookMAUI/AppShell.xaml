@@ -7,7 +7,8 @@
     xmlns:pages="clr-namespace:AddressBookMAUI.Pages"   
     Shell.FlyoutBehavior="Flyout"
     Title="AddressBook">
-    
+
+    <ShellContent Title="Home" ContentTemplate="{DataTemplate pages:AddressBookHomePage}" Route="AddressBookHomePage" />
     <ShellContent Title="Contact List" ContentTemplate="{DataTemplate pages:AddressBookListPage}" Route="AddressBookListPage" />
     <ShellContent Title="Add Contact" ContentTemplate="{DataTemplate pages:AddressBookAddPage}" Route="AddressBookAddPage" />
 </Shell>

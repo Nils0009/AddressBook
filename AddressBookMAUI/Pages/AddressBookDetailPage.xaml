@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:AddressBookMAUI.ViewModels"
+             x:DataType="{x:Type viewmodels:AddressBookDetailViewModel}"
+             x:Class="AddressBookMAUI.Pages.AddressBookDetailPage"
+             
+             Title="">
+
+    <ScrollView>
+        <Grid RowDefinitions="auto, auto" Margin="10" HorizontalOptions="Center">
+
+            <VerticalStackLayout Grid.Row="0" Margin="0,0,0,50" >
+                <Label Text="Contact Details" FontSize="Header"  FontAttributes="Italic, Bold" TextDecorations="Underline"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="1">
+                <HorizontalStackLayout Margin="0,10,0,10">
+                    <Label Text="First name: " FontSize="Small" TextColor="Gray"/>
+                    <Label Text="{Binding ContactPerson.FirstName}" Margin="5,0,0,0" FontSize="Small"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Margin="0,10,0,10" >
+                    <Label Text="Last name: " FontSize="Small" TextColor="Gray"/>
+                    <Label Text="{Binding ContactPerson.LastName}" Margin="5,0,0,0" FontSize="Small"/>
+                </HorizontalStackLayout>
+
+
+                <HorizontalStackLayout Margin="0,10,0,10" >
+                    <Label Text="Email:" FontSize="Small" TextColor="Gray"/>
+                    <Label Text="{Binding ContactPerson.Email}" Margin="5,0,0,0" FontSize="Small"/>
+                </HorizontalStackLayout>
+
+
+                <HorizontalStackLayout Margin="0,10,0,10" >
+                    <Label Text="Phone number:" FontSize="Small" TextColor="Gray"/>
+                    <Label Text="{Binding ContactPerson.PhoneNumber}" Margin="5,0,0,0" FontSize="Small"/>
+                </HorizontalStackLayout>
+
+
+                <HorizontalStackLayout Margin="0,10,0,10" >
+                    <Label Text="Street name:" FontSize="Small" TextColor="Gray"/>
+                    <Label Text="{Binding ContactPerson.StreetName}" Margin="5,0,0,0" FontSize="Small"/>
+
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Margin="0,10,0,10" >
+                    <Label Text="City:" FontSize="Small" TextColor="Gray"/>
+                    <Label Text="{Binding ContactPerson.City}" Margin="5,0,0,0" FontSize="Small"/>
+                </HorizontalStackLayout>
+
+
+                <HorizontalStackLayout Margin="0,10,0,10" >
+                    <Label Text="Postal code:" FontSize="Small" TextColor="Gray"/>
+                    <Label Text="{Binding ContactPerson.PostalCode}" Margin="5,0,0,0" FontSize="Small"/>
+                </HorizontalStackLayout>
+
+
+                <Button Command="{Binding NavigateToHomeCommand}" Text="Go to Home" Margin="0,50,0,5"/>
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+
+</ContentPage>

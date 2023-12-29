@@ -7,37 +7,49 @@
              x:DataType="{x:Type viewmodels:AddressBookListViewModel}"
              
              x:Class="AddressBookMAUI.Pages.AddressBookListPage"
-             Title="Contact List">
-    
-    
-    <Grid RowDefinitions="auto,auto" Margin="10">
+             Title="">
 
-        <Button Grid.Row="0" Text="Add contact" Command="{Binding NavigateToAddCommand}"/>
+    <ScrollView>
+        <Grid RowDefinitions="auto, auto" Margin="10" HorizontalOptions="Center">
+            <VerticalStackLayout  Grid.Row="0">
+                <Label Text="Contact List" Margin="0,0,0,30" FontSize="Header" HorizontalOptions="Center" FontAttributes="Italic, Bold" TextDecorations="Underline"/>
+                <CollectionView ItemsSource="{Binding ContactList}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Type models:ContactModel}">
+                            <Grid RowDefinitions="*,auto">
+                                <VerticalStackLayout Margin="20,0,0,0" Grid.Row="0">
+                                    <HorizontalStackLayout Margin="0,5,0,10">
+                                        <Label Text="First name:" FontSize="Small" TextColor="Gray" Margin="0,0,5,0"/>
+                                        <Label Text="{Binding FirstName}" FontSize="Small"/>
+                                    </HorizontalStackLayout>
 
-        <VerticalStackLayout Grid.Row="1">
-            <CollectionView ItemsSource="{Binding ContactList}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="{x:Type models:ContactModel}">
-                        <Grid ColumnDefinitions="auto,auto">
-                            <HorizontalStackLayout Margin="0,10,0,10" Grid.Column="0">
-                                <Label Text="{Binding FirstName}" Margin="5,0,5,0"/>
-                                <Label Text="{Binding LastName}"/>
-                                <Label Text="{Binding Email}" Margin="5,0,5,0"/>
-                                <Label Text="{Binding PhoneNumber}"/>
-                                <Label Text="{Binding StreetName}" Margin="5,0,5,0"/>
-                                <Label Text="{Binding City}"/>
-                                <Label Text="{Binding PostalCode}" Margin="5,0,5,0"/>
+                                    <HorizontalStackLayout Margin="0,5,0,10">
+                                        <Label Text="Last name:" FontSize="Small" TextColor="Gray" Margin="0,0,5,0"/>
+                                        <Label Text="{Binding LastName}" FontSize="Small"/>
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout Margin="0,5,0,10">
+                                        <Label Text="Email:" FontSize="Small" TextColor="Gray" Margin="0,0,5,0"/>
+                                        <Label Text="{Binding Email}" FontSize="Small"/>
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
                                 
-                                <HorizontalStackLayout Grid.Column="1">
-                                <Button Text="Edit" CommandParameter="{Binding .}" Command="{Binding Path=NavigateToEditCommand, Source={RelativeSource AncestorType={x:Type viewmodels:AddressBookListViewModel}}}" Padding="5"/>
-                                    <Button Text="Delete" CommandParameter="{Binding .}" Command="{Binding Path=DeleteContactCommand, Source={RelativeSource AncestorType={x:Type viewmodels:AddressBookListViewModel}}}" Padding="5"/>
+                                <HorizontalStackLayout Grid.Row="1" Margin="20,0,0,20">
+                                    <Button Text="Edit" CommandParameter="{Binding .}" Command="{Binding Path=NavigateToEditCommand, Source={RelativeSource AncestorType={x:Type viewmodels:AddressBookListViewModel}}}" Margin="1,5,5,5" HeightRequest="5" BackgroundColor="YellowGreen"/>
+                                    <Button Text="Details" CommandParameter="{Binding .}" Command="{Binding Path=NavigateToDetailsCommand, Source={RelativeSource AncestorType={x:Type viewmodels:AddressBookListViewModel}}}" Margin="1,5,5,5" HeightRequest="5"/>
+                                    <Button Text="Delete" CommandParameter="{Binding .}" Command="{Binding Path=DeleteContactCommand, Source={RelativeSource AncestorType={x:Type viewmodels:AddressBookListViewModel}}}" Margin="1,5,5,5" HeightRequest="5" BackgroundColor="DarkRed"/>
                                 </HorizontalStackLayout>
-                            
-                            </HorizontalStackLayout>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </VerticalStackLayout>
-    </Grid>
+
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="1" Margin="0,50,0,0">
+                <Button Text="Add contact" Command="{Binding NavigateToAddCommand}" Margin="5"/>
+                <Button Text="Go to home" Command="{Binding NavigateToHomeCommand}" Margin="5"/>
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
 </ContentPage>
